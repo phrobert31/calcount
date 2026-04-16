@@ -26,17 +26,17 @@
     position: fixed; bottom: 0; left: 0; right: 0; display: flex;
     background-color: #ffffff !important;
     border-top: 1px solid #ddd9d3;
-    padding-bottom: var(--safe-bottom); z-index: 100;
+    padding-bottom: calc(var(--safe-bottom) + 8px); z-index: 100;
   }
   .tab-btn {
-    flex: 1; padding: 12px 0 10px; background: none; border: none;
+    flex: 1; padding: 16px 0 14px; background: none; border: none;
     color: #8c8985; font-family: 'DM Sans', sans-serif;
-    font-size: 11px; font-weight: 600; cursor: pointer;
-    display: flex; flex-direction: column; align-items: center; gap: 3px;
+    font-size: 12px; font-weight: 600; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
   }
   .tab-btn.active { color: #3a8f6e; }
-  .tab-btn svg { width: 20px; height: 20px; }
-  .tab-content { display: none; padding-bottom: calc(68px + var(--safe-bottom)); }
+  .tab-btn svg { width: 24px; height: 24px; }
+  .tab-content { display: none; padding-bottom: calc(90px + var(--safe-bottom)); }
   .tab-content.active { display: block; }
 
   .today-total { text-align: center; padding: 24px 20px 4px; }
@@ -109,7 +109,7 @@
   .yesterday-val { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 500; color: #333130 !important; }
 
   .undo-toast {
-    position: fixed; bottom: calc(76px + var(--safe-bottom));
+    position: fixed; bottom: calc(100px + var(--safe-bottom));
     left: 50%; transform: translateX(-50%) translateY(120px);
     background-color: #333130 !important; color: #ffffff !important;
     padding: 12px 20px; border-radius: 12px; font-size: 14px; font-weight: 500;
@@ -483,7 +483,7 @@ function renderHistory(){
   if(past.length===0){ag.innerHTML='';document.getElementById('week-summary').style.display='none';list.innerHTML='<div class="empty-history">No history yet.<br>Your daily logs will appear here.</div>';return}
   const w7=past.slice(0,7),mp=`${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`,md=past.filter(d=>d.startsWith(mp)),yp=`${now.getFullYear()}`,yd=past.filter(d=>d.startsWith(yp));
   const wa=ca(w7),ma=ca(md),ya=ca(yd);
-  ag.innerHTML=`<div class="avg-card"><div class="avg-label">7-day</div><div class="avg-val">${wa!==null?wa.toLocaleString():'—'}</div><div class="avg-sub">kcal/day</div></div><div class="avg-card"><div class="avg-label">Month</div><div class="avg-val">${ma!==null?ma.toLocaleString():'—'}</div><div class="avg-sub">${md.length} day${md.length!==1?'s':''}</div></div><div class="avg-card"><div class="avg-label">Year</div><div class="avg-val">${ya!==null?ya.toLocaleString():'—'}</div><div class="avg-sub">${yd.length} day${yd.length!==1?'s':''}</div></div>`;
+  ag.innerHTML=`<div class="avg-card"><div class="avg-label">7-day avg</div><div class="avg-val">${wa!==null?wa.toLocaleString():'—'}</div><div class="avg-sub">kcal/day</div></div><div class="avg-card"><div class="avg-label">Month avg</div><div class="avg-val">${ma!==null?ma.toLocaleString():'—'}</div><div class="avg-sub">${md.length} day${md.length!==1?'s':''} · kcal/day</div></div><div class="avg-card"><div class="avg-label">Year avg</div><div class="avg-val">${ya!==null?ya.toLocaleString():'—'}</div><div class="avg-sub">${yd.length} day${yd.length!==1?'s':''} · kcal/day</div></div>`;
 
   const wds=getWeekDays(),wdd=wds.map(dk=>({key:dk,total:dayTotal(loadDay(dk))})),mxW=Math.max(...wdd.map(d=>d.total),1),dL=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],ws=document.getElementById('week-summary');
   ws.style.display='block';ws.innerHTML=`<div class="week-summary-title">This week</div><div class="week-summary-days">${wdd.map((d,i)=>{const h=d.total>0?Math.max(8,Math.round((d.total/mxW)*60)):4;const bc=d.key===today?'#3a8f6e':(d.total>0?'#c8c5bf':'#eae8e4');return`<div class="week-day-col"><div class="week-day-label">${dL[i]}</div><div class="week-day-bar-wrap"><div class="week-day-bar" style="height:${h}px;background:${bc};"></div></div><div class="week-day-val">${d.total||''}</div></div>`}).join('')}</div>`;
