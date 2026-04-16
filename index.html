@@ -204,29 +204,29 @@
   .export-btn:active { background-color: #eae8e4 !important; }
 
   /* ── Weight tab ── */
-  .weight-header { text-align: center; padding: 24px 20px 4px; }
-  .weight-label { font-size: 13px; font-weight: 500; color: #8c8985; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
-  .weight-current { font-family: 'DM Mono', monospace; font-size: 56px; font-weight: 500; color: #333130 !important; line-height: 1; }
-  .weight-unit { font-size: 14px; color: #8c8985; margin-top: 2px; letter-spacing: 1.5px; font-weight: 500; }
-  .weight-trend { margin-top: 8px; font-size: 13px; font-weight: 600; }
+  .weight-header { text-align: center; padding: 18px 20px 4px; }
+  .weight-label { font-size: 12px; font-weight: 500; color: #8c8985; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
+  .weight-current { font-family: 'DM Mono', monospace; font-size: 42px; font-weight: 500; color: #333130 !important; line-height: 1; }
+  .weight-unit { font-size: 12px; color: #8c8985; margin-top: 2px; letter-spacing: 1.5px; font-weight: 500; }
+  .weight-trend { margin-top: 6px; font-size: 12px; font-weight: 600; }
   .weight-trend.down { color: #2a7a55; }
   .weight-trend.up { color: #c0392b; }
   .weight-trend.flat { color: #8c8985; }
 
-  .weight-input-row { padding: 20px 20px 0; display: flex; gap: 10px; }
+  .weight-input-row { padding: 16px 20px 0; display: flex; flex-direction: column; gap: 10px; }
   .weight-input {
-    flex: 1; background-color: #ffffff !important;
+    width: 100%; background-color: #ffffff !important;
     border: 2px solid #ddd9d3; border-radius: var(--radius);
-    padding: 22px 16px; font-family: 'DM Mono', monospace;
-    font-size: 32px; font-weight: 500; color: #333130 !important;
+    padding: 12px 16px; font-family: 'DM Mono', monospace;
+    font-size: 22px; font-weight: 500; color: #333130 !important;
     text-align: center; outline: none; -webkit-appearance: none;
   }
   .weight-input:focus { border-color: #3a8f6e; }
   .weight-input::placeholder { color: #c0bdb8; }
   .weight-log-btn {
-    width: 80px; background-color: #3a8f6e !important; color: #ffffff !important;
-    border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif;
-    font-size: 16px; font-weight: 700; cursor: pointer;
+    width: 100%; background-color: #3a8f6e !important; color: #ffffff !important;
+    border: none; border-radius: var(--radius); padding: 14px; font-family: 'DM Sans', sans-serif;
+    font-size: 15px; font-weight: 700; cursor: pointer;
   }
   .weight-log-btn:active { opacity: 0.85; }
 
@@ -333,9 +333,10 @@
   </div>
   <div class="weight-input-row">
     <input class="weight-input" id="weight-input" type="number" inputmode="decimal" step="0.1" min="1" placeholder="weight" enterkeyhint="done">
-    <button class="weight-log-btn" id="weight-log-btn">Log</button>
+    <button class="weight-log-btn" id="weight-log-btn">Log weight</button>
   </div>
   <div class="weight-stats" id="weight-stats"></div>
+  <div class="goal-card" id="bmi-card" style="display:none;"></div>
   <div class="weight-range-row">
     <button class="range-btn" data-range="7">7d</button>
     <button class="range-btn" data-range="30">30d</button>
@@ -379,6 +380,11 @@
       <div class="setting-label">Goal weight</div>
       <input class="setting-input" id="input-goal-weight" type="number" inputmode="decimal" step="0.1" min="1" placeholder="e.g. 75" enterkeyhint="done">
       <div class="setting-hint">target weight (same unit)</div>
+    </div>
+    <div class="setting-card">
+      <div class="setting-label">Height</div>
+      <input class="setting-input" id="input-height" type="number" inputmode="decimal" step="0.1" min="1" placeholder="e.g. 180" enterkeyhint="done">
+      <div class="setting-hint" id="height-hint">cm (for BMI calculation)</div>
     </div>
     <div class="setting-card">
       <div class="setting-label">Weight unit</div>
@@ -496,7 +502,7 @@ function renderHistory(){
 document.getElementById('add-day-trigger').addEventListener('click',()=>{const f=document.getElementById('add-day-form');f.classList.toggle('show');if(f.classList.contains('show')){document.getElementById('add-day-date').max=todayKey();document.getElementById('add-day-meals').innerHTML=MEALS.map(m=>`<div class="history-edit-row"><div class="hdot" style="background:${m.color}"></div><label>${m.name}</label><input type="number" inputmode="numeric" min="0" data-meal="${m.key}" placeholder="0"></div>`).join('')}});
 document.getElementById('add-day-save').addEventListener('click',()=>{const dv=document.getElementById('add-day-date').value;if(!dv)return;if(dv>todayKey()){alert('Cannot add a future date.');return}const d={};document.getElementById('add-day-meals').querySelectorAll('input').forEach(i=>{const v=parseInt(i.value,10);if(v&&v>0)d[i.dataset.meal]=v});if(!Object.keys(d).length)return;const existing=loadDay(dv);if(dayTotal(existing)>0&&!confirm('This day already has data. Overwrite it?'))return;saveDay(dv,d);document.getElementById('add-day-form').classList.remove('show');document.getElementById('add-day-date').value='';renderHistory();renderToday()});
 
-function loadSettings(){document.getElementById('input-daily-limit').value=getLimit('daily')||'';document.getElementById('input-weekly-limit').value=getLimit('weekly')||'';document.getElementById('input-goal-weight').value=getGoalWeight()||'';updateUnitButtons()}
+function loadSettings(){document.getElementById('input-daily-limit').value=getLimit('daily')||'';document.getElementById('input-weekly-limit').value=getLimit('weekly')||'';document.getElementById('input-goal-weight').value=getGoalWeight()||'';document.getElementById('input-height').value=getHeight()||'';updateUnitButtons();updateHeightHint()}
 const dlInput=document.getElementById('input-daily-limit'),wlInput=document.getElementById('input-weekly-limit');
 function handleDailyChange(){setLimit('daily',parseInt(dlInput.value,10));renderToday()}
 function handleWeeklyChange(){setLimit('weekly',parseInt(wlInput.value,10));renderToday()}
@@ -505,7 +511,7 @@ wlInput.addEventListener('change',handleWeeklyChange);wlInput.addEventListener('
 
 function getAllData(){const days=getDaysList(),r=[];days.forEach(dk=>{const data=loadDay(dk),total=dayTotal(data);if(total>0)r.push({date:dk,...MEALS.reduce((o,m)=>{o[m.key]=data[m.key]||0;return o},{}),total})});return r}
 function downloadFile(content,filename,type){const b=new Blob([content],{type}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)}
-document.getElementById('export-json').addEventListener('click',()=>{const d=getAllData();const w=getWeightEntries();downloadFile(JSON.stringify({exported:new Date().toISOString(),dailyLimit:getLimit('daily'),weeklyLimit:getLimit('weekly'),goalWeight:getGoalWeight(),weightUnit:getWeightUnit(),days:d,weights:w},null,2),'caltrack-export.json','application/json')});
+document.getElementById('export-json').addEventListener('click',()=>{const d=getAllData();const w=getWeightEntries();downloadFile(JSON.stringify({exported:new Date().toISOString(),dailyLimit:getLimit('daily'),weeklyLimit:getLimit('weekly'),goalWeight:getGoalWeight(),height:getHeight(),weightUnit:getWeightUnit(),days:d,weights:w},null,2),'caltrack-export.json','application/json')});
 document.getElementById('export-csv').addEventListener('click',()=>{const d=getAllData(),w=getSortedWeights(),unit=getWeightUnit();const wMap={};w.forEach(e=>{wMap[e.date]=e.value});const h='Date,Breakfast,Lunch,Dinner,Snack,Total,Weight('+unit+')';const allDates=new Set([...d.map(r=>r.date),...w.map(r=>r.date)]);const sorted=[...allDates].sort();const rows=sorted.map(date=>{const cal=d.find(r=>r.date===date);const wt=wMap[date];return `${date},${cal?cal.breakfast:''},${cal?cal.lunch:''},${cal?cal.dinner:''},${cal?cal.snack:''},${cal?cal.total:''},${wt!==undefined?wt:''}`});downloadFile([h,...rows].join('\n'),'caltrack-export.csv','text/csv')});
 
 // ── Weight tracking ──
@@ -513,6 +519,24 @@ function getWeightUnit(){return localStorage.getItem('cal_weight_unit')||'kg'}
 function setWeightUnit(u){localStorage.setItem('cal_weight_unit',u)}
 function getGoalWeight(){const v=localStorage.getItem('cal_goal_weight');return v?parseFloat(v):null}
 function setGoalWeight(v){if(v&&v>0)localStorage.setItem('cal_goal_weight',v);else localStorage.removeItem('cal_goal_weight')}
+function getHeight(){const v=localStorage.getItem('cal_height');return v?parseFloat(v):null}
+function setHeight(v){if(v&&v>0)localStorage.setItem('cal_height',v);else localStorage.removeItem('cal_height')}
+function calcBMI(weight, height, unit){
+  // height is in cm if weight unit is kg, in inches if weight unit is lb
+  if(unit==='kg'){
+    const m = height/100;
+    return weight/(m*m);
+  } else {
+    // lb + inches: BMI = 703 * lb / in²
+    return 703 * weight / (height*height);
+  }
+}
+function bmiCategory(bmi){
+  if(bmi<18.5) return {label:'Underweight', color:'#2e6db5'};
+  if(bmi<25) return {label:'Normal', color:'#2a7a55'};
+  if(bmi<30) return {label:'Overweight', color:'#d4920e'};
+  return {label:'Obese', color:'#c0392b'};
+}
 function getWeightEntries(){try{return JSON.parse(localStorage.getItem('cal_weights'))||{}}catch{return{}}}
 function saveWeightEntry(dk,val){const e=getWeightEntries();e[dk]=val;localStorage.setItem('cal_weights',JSON.stringify(e))}
 function deleteWeightEntry(dk){const e=getWeightEntries();delete e[dk];localStorage.setItem('cal_weights',JSON.stringify(e))}
@@ -585,6 +609,20 @@ function renderWeight(){
       <div class="weight-stat"><div class="weight-stat-label">Highest</div><div class="weight-stat-val">${max.toFixed(1)}</div></div>
       <div class="weight-stat"><div class="weight-stat-label">Total</div><div class="weight-stat-val">${changeStr}</div></div>`;
   } else { statsEl.innerHTML=''; }
+
+  // BMI card
+  const bmiCard=document.getElementById('bmi-card');
+  const height=getHeight();
+  if(height&&latest){
+    const bmi=calcBMI(latest.value, height, unit);
+    const cat=bmiCategory(bmi);
+    bmiCard.style.display='block';
+    bmiCard.innerHTML=`
+      <div class="goal-title">BMI</div>
+      <div class="goal-row"><span class="gl">Current</span><span class="gv">${bmi.toFixed(1)}</span></div>
+      <div class="goal-row"><span class="gl">Category</span><span class="gv" style="color:${cat.color}">${cat.label}</span></div>
+      <div class="goal-row"><span class="gl">Height</span><span class="gv">${height} ${unit==='kg'?'cm':'in'}</span></div>`;
+  } else { bmiCard.style.display='none'; }
 
   // Filter by range
   let filtered=all;
@@ -782,6 +820,16 @@ document.querySelectorAll('.range-btn').forEach(b=>{
 document.getElementById('input-goal-weight').addEventListener('change',e=>{setGoalWeight(parseFloat(e.target.value));renderWeight()});
 document.getElementById('input-goal-weight').addEventListener('blur',e=>{setGoalWeight(parseFloat(e.target.value));renderWeight()});
 
+// Height input
+document.getElementById('input-height').addEventListener('change',e=>{setHeight(parseFloat(e.target.value));renderWeight()});
+document.getElementById('input-height').addEventListener('blur',e=>{setHeight(parseFloat(e.target.value));renderWeight()});
+
+function updateHeightHint(){
+  const u=getWeightUnit();
+  document.getElementById('height-hint').textContent=(u==='kg'?'cm':'inches')+' (for BMI calculation)';
+  document.getElementById('input-height').placeholder=u==='kg'?'e.g. 180':'e.g. 71';
+}
+
 // Unit buttons
 function updateUnitButtons(){
   const u=getWeightUnit();
@@ -791,7 +839,7 @@ function updateUnitButtons(){
   });
 }
 document.querySelectorAll('.unit-btn').forEach(b=>{
-  b.addEventListener('click',()=>{setWeightUnit(b.dataset.unit);updateUnitButtons();renderWeight()});
+  b.addEventListener('click',()=>{setWeightUnit(b.dataset.unit);updateUnitButtons();updateHeightHint();renderWeight()});
 });
 
 document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById(btn.dataset.tab).classList.add('active');if(btn.dataset.tab==='tab-history')renderHistory();if(btn.dataset.tab==='tab-settings')loadSettings();if(btn.dataset.tab==='tab-weight')renderWeight()})});
