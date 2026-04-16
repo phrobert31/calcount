@@ -203,6 +203,83 @@
   }
   .export-btn:active { background-color: #eae8e4 !important; }
 
+  /* ── Weight tab ── */
+  .weight-header { text-align: center; padding: 24px 20px 4px; }
+  .weight-label { font-size: 13px; font-weight: 500; color: #8c8985; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+  .weight-current { font-family: 'DM Mono', monospace; font-size: 56px; font-weight: 500; color: #333130 !important; line-height: 1; }
+  .weight-unit { font-size: 14px; color: #8c8985; margin-top: 2px; letter-spacing: 1.5px; font-weight: 500; }
+  .weight-trend { margin-top: 8px; font-size: 13px; font-weight: 600; }
+  .weight-trend.down { color: #2a7a55; }
+  .weight-trend.up { color: #c0392b; }
+  .weight-trend.flat { color: #8c8985; }
+
+  .weight-input-row { padding: 20px 20px 0; display: flex; gap: 10px; }
+  .weight-input {
+    flex: 1; background-color: #ffffff !important;
+    border: 2px solid #ddd9d3; border-radius: var(--radius);
+    padding: 22px 16px; font-family: 'DM Mono', monospace;
+    font-size: 32px; font-weight: 500; color: #333130 !important;
+    text-align: center; outline: none; -webkit-appearance: none;
+  }
+  .weight-input:focus { border-color: #3a8f6e; }
+  .weight-input::placeholder { color: #c0bdb8; }
+  .weight-log-btn {
+    width: 80px; background-color: #3a8f6e !important; color: #ffffff !important;
+    border: none; border-radius: var(--radius); font-family: 'DM Sans', sans-serif;
+    font-size: 16px; font-weight: 700; cursor: pointer;
+  }
+  .weight-log-btn:active { opacity: 0.85; }
+
+  .weight-stats { padding: 14px 20px 0; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .weight-stat { background-color: #ffffff !important; border: 1px solid #ddd9d3; border-radius: var(--radius); padding: 12px 10px; text-align: center; }
+  .weight-stat-label { font-size: 10px; font-weight: 600; color: #8c8985; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
+  .weight-stat-val { font-family: 'DM Mono', monospace; font-size: 16px; font-weight: 500; color: #333130 !important; }
+
+  .weight-range-row { padding: 14px 20px 0; display: flex; gap: 6px; }
+  .range-btn {
+    flex: 1; background-color: #ffffff !important; border: 1px solid #ddd9d3;
+    border-radius: 10px; padding: 8px 0; font-family: 'DM Sans', sans-serif;
+    font-size: 12px; font-weight: 600; color: #8c8985; cursor: pointer;
+  }
+  .range-btn.active { background-color: #3a8f6e !important; border-color: #3a8f6e; color: #ffffff !important; }
+
+  .weight-chart-card {
+    margin: 14px 20px 0; padding: 16px 12px 12px; background-color: #ffffff !important;
+    border: 1px solid #ddd9d3; border-radius: var(--radius);
+  }
+  .weight-chart-title { font-size: 13px; font-weight: 700; color: #333130 !important; margin: 0 4px 10px; display: flex; justify-content: space-between; align-items: center; }
+  .chart-legend { display: flex; gap: 10px; font-size: 10px; color: #8c8985; font-weight: 500; }
+  .legend-item { display: flex; align-items: center; gap: 4px; }
+  .legend-swatch { width: 10px; height: 2px; border-radius: 1px; }
+  .weight-chart svg { width: 100%; display: block; }
+
+  .goal-card {
+    margin: 14px 20px 0; padding: 14px 16px;
+    background-color: #ffffff !important; border: 1px solid #ddd9d3; border-radius: var(--radius);
+  }
+  .goal-title { font-size: 13px; font-weight: 700; color: #333130 !important; margin-bottom: 8px; }
+  .goal-row { display: flex; justify-content: space-between; font-size: 13px; padding: 3px 0; }
+  .goal-row .gl { color: #8c8985; }
+  .goal-row .gv { font-family: 'DM Mono', monospace; font-weight: 500; color: #333130 !important; }
+  .goal-row .gv.eta { color: #3a8f6e; }
+
+  .weight-entries-card { margin: 14px 16px 20px; }
+  .weight-entries-title { padding: 0 4px 8px; font-size: 13px; font-weight: 700; color: #333130 !important; }
+  .weight-entry {
+    background-color: #ffffff !important; border: 1px solid #ddd9d3;
+    border-radius: var(--radius); padding: 12px 14px; margin-bottom: 6px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .weight-entry-date { font-size: 13px; font-weight: 600; color: #333130 !important; }
+  .weight-entry-delta { font-size: 11px; color: #8c8985; margin-left: 8px; }
+  .weight-entry-val { font-family: 'DM Mono', monospace; font-size: 15px; font-weight: 500; color: #333130 !important; }
+  .weight-entry-delete {
+    background: none; border: none; color: #8c8985;
+    font-size: 16px; padding: 4px 8px; cursor: pointer; margin-left: 8px;
+  }
+  .weight-entry-delete:active { color: #c0392b; }
+  .weight-empty { text-align: center; color: #8c8985; padding: 30px 20px; font-size: 14px; line-height: 1.5; }
+
   @keyframes flash { 0% { opacity: 0.7; } 100% { opacity: 1; } }
   .meal-btn.flash { animation: flash 0.3s ease-out; }
 </style>
@@ -247,6 +324,41 @@
   </div>
 </div>
 
+<div id="tab-weight" class="tab-content">
+  <div class="weight-header">
+    <div class="weight-label" id="weight-date">Today</div>
+    <div class="weight-current" id="weight-current">—</div>
+    <div class="weight-unit" id="weight-unit-display">KG</div>
+    <div class="weight-trend" id="weight-trend"></div>
+  </div>
+  <div class="weight-input-row">
+    <input class="weight-input" id="weight-input" type="number" inputmode="decimal" step="0.1" min="1" placeholder="weight" enterkeyhint="done">
+    <button class="weight-log-btn" id="weight-log-btn">Log</button>
+  </div>
+  <div class="weight-stats" id="weight-stats"></div>
+  <div class="weight-range-row">
+    <button class="range-btn" data-range="7">7d</button>
+    <button class="range-btn" data-range="30">30d</button>
+    <button class="range-btn" data-range="90">90d</button>
+    <button class="range-btn active" data-range="all">All</button>
+  </div>
+  <div class="weight-chart-card" id="weight-chart-card" style="display:none;">
+    <div class="weight-chart-title">
+      <span>Progress</span>
+      <span class="chart-legend">
+        <span class="legend-item"><span class="legend-swatch" style="background:#b4b0a9"></span>Daily</span>
+        <span class="legend-item"><span class="legend-swatch" style="background:#3a8f6e"></span>7-day avg</span>
+      </span>
+    </div>
+    <div class="weight-chart" id="weight-chart"></div>
+  </div>
+  <div class="goal-card" id="goal-card" style="display:none;"></div>
+  <div class="weight-entries-card">
+    <div class="weight-entries-title">Entries</div>
+    <div id="weight-entries"></div>
+  </div>
+</div>
+
 <div id="tab-settings" class="tab-content">
   <div class="settings-header">
     <h2>Limits</h2>
@@ -262,6 +374,18 @@
       <div class="setting-label">Weekly limit</div>
       <input class="setting-input" id="input-weekly-limit" type="number" inputmode="numeric" pattern="[0-9]*" placeholder="e.g. 14000" enterkeyhint="done" min="1">
       <div class="setting-hint">kcal per week (Mon–Sun)</div>
+    </div>
+    <div class="setting-card">
+      <div class="setting-label">Goal weight</div>
+      <input class="setting-input" id="input-goal-weight" type="number" inputmode="decimal" step="0.1" min="1" placeholder="e.g. 75" enterkeyhint="done">
+      <div class="setting-hint">target weight (same unit)</div>
+    </div>
+    <div class="setting-card">
+      <div class="setting-label">Weight unit</div>
+      <div style="display:flex;gap:10px;">
+        <button class="export-btn unit-btn" data-unit="kg">Kilograms (kg)</button>
+        <button class="export-btn unit-btn" data-unit="lb">Pounds (lb)</button>
+      </div>
     </div>
     <div class="setting-card">
       <div class="setting-label">Export data</div>
@@ -284,6 +408,9 @@
   </button>
   <button class="tab-btn" data-tab="tab-history">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8v4l3 3"/><path d="M3.05 11a9 9 0 1 1 .5 4"/><polyline points="3 16 3 11 8 11"/></svg>History
+  </button>
+  <button class="tab-btn" data-tab="tab-weight">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l3-8 4 16 3-8h5"/></svg>Weight
   </button>
   <button class="tab-btn" data-tab="tab-settings">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>Limits
@@ -369,7 +496,7 @@ function renderHistory(){
 document.getElementById('add-day-trigger').addEventListener('click',()=>{const f=document.getElementById('add-day-form');f.classList.toggle('show');if(f.classList.contains('show')){document.getElementById('add-day-date').max=todayKey();document.getElementById('add-day-meals').innerHTML=MEALS.map(m=>`<div class="history-edit-row"><div class="hdot" style="background:${m.color}"></div><label>${m.name}</label><input type="number" inputmode="numeric" min="0" data-meal="${m.key}" placeholder="0"></div>`).join('')}});
 document.getElementById('add-day-save').addEventListener('click',()=>{const dv=document.getElementById('add-day-date').value;if(!dv)return;if(dv>todayKey()){alert('Cannot add a future date.');return}const d={};document.getElementById('add-day-meals').querySelectorAll('input').forEach(i=>{const v=parseInt(i.value,10);if(v&&v>0)d[i.dataset.meal]=v});if(!Object.keys(d).length)return;const existing=loadDay(dv);if(dayTotal(existing)>0&&!confirm('This day already has data. Overwrite it?'))return;saveDay(dv,d);document.getElementById('add-day-form').classList.remove('show');document.getElementById('add-day-date').value='';renderHistory();renderToday()});
 
-function loadSettings(){document.getElementById('input-daily-limit').value=getLimit('daily')||'';document.getElementById('input-weekly-limit').value=getLimit('weekly')||''}
+function loadSettings(){document.getElementById('input-daily-limit').value=getLimit('daily')||'';document.getElementById('input-weekly-limit').value=getLimit('weekly')||'';document.getElementById('input-goal-weight').value=getGoalWeight()||'';updateUnitButtons()}
 const dlInput=document.getElementById('input-daily-limit'),wlInput=document.getElementById('input-weekly-limit');
 function handleDailyChange(){setLimit('daily',parseInt(dlInput.value,10));renderToday()}
 function handleWeeklyChange(){setLimit('weekly',parseInt(wlInput.value,10));renderToday()}
@@ -378,10 +505,296 @@ wlInput.addEventListener('change',handleWeeklyChange);wlInput.addEventListener('
 
 function getAllData(){const days=getDaysList(),r=[];days.forEach(dk=>{const data=loadDay(dk),total=dayTotal(data);if(total>0)r.push({date:dk,...MEALS.reduce((o,m)=>{o[m.key]=data[m.key]||0;return o},{}),total})});return r}
 function downloadFile(content,filename,type){const b=new Blob([content],{type}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=filename;document.body.appendChild(a);a.click();document.body.removeChild(a);URL.revokeObjectURL(u)}
-document.getElementById('export-json').addEventListener('click',()=>{const d=getAllData();downloadFile(JSON.stringify({exported:new Date().toISOString(),dailyLimit:getLimit('daily'),weeklyLimit:getLimit('weekly'),days:d},null,2),'caltrack-export.json','application/json')});
-document.getElementById('export-csv').addEventListener('click',()=>{const d=getAllData(),h='Date,Breakfast,Lunch,Dinner,Snack,Total',rows=d.map(r=>`${r.date},${r.breakfast},${r.lunch},${r.dinner},${r.snack},${r.total}`);downloadFile([h,...rows].join('\n'),'caltrack-export.csv','text/csv')});
+document.getElementById('export-json').addEventListener('click',()=>{const d=getAllData();const w=getWeightEntries();downloadFile(JSON.stringify({exported:new Date().toISOString(),dailyLimit:getLimit('daily'),weeklyLimit:getLimit('weekly'),goalWeight:getGoalWeight(),weightUnit:getWeightUnit(),days:d,weights:w},null,2),'caltrack-export.json','application/json')});
+document.getElementById('export-csv').addEventListener('click',()=>{const d=getAllData(),w=getSortedWeights(),unit=getWeightUnit();const wMap={};w.forEach(e=>{wMap[e.date]=e.value});const h='Date,Breakfast,Lunch,Dinner,Snack,Total,Weight('+unit+')';const allDates=new Set([...d.map(r=>r.date),...w.map(r=>r.date)]);const sorted=[...allDates].sort();const rows=sorted.map(date=>{const cal=d.find(r=>r.date===date);const wt=wMap[date];return `${date},${cal?cal.breakfast:''},${cal?cal.lunch:''},${cal?cal.dinner:''},${cal?cal.snack:''},${cal?cal.total:''},${wt!==undefined?wt:''}`});downloadFile([h,...rows].join('\n'),'caltrack-export.csv','text/csv')});
 
-document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById(btn.dataset.tab).classList.add('active');if(btn.dataset.tab==='tab-history')renderHistory();if(btn.dataset.tab==='tab-settings')loadSettings()})});
+// ── Weight tracking ──
+function getWeightUnit(){return localStorage.getItem('cal_weight_unit')||'kg'}
+function setWeightUnit(u){localStorage.setItem('cal_weight_unit',u)}
+function getGoalWeight(){const v=localStorage.getItem('cal_goal_weight');return v?parseFloat(v):null}
+function setGoalWeight(v){if(v&&v>0)localStorage.setItem('cal_goal_weight',v);else localStorage.removeItem('cal_goal_weight')}
+function getWeightEntries(){try{return JSON.parse(localStorage.getItem('cal_weights'))||{}}catch{return{}}}
+function saveWeightEntry(dk,val){const e=getWeightEntries();e[dk]=val;localStorage.setItem('cal_weights',JSON.stringify(e))}
+function deleteWeightEntry(dk){const e=getWeightEntries();delete e[dk];localStorage.setItem('cal_weights',JSON.stringify(e))}
+function getSortedWeights(){const e=getWeightEntries();return Object.entries(e).map(([d,v])=>({date:d,value:v})).sort((a,b)=>a.date.localeCompare(b.date))}
+
+// Simple moving average
+function movingAverage(data, window=7){
+  return data.map((d,i)=>{
+    const start=Math.max(0,i-window+1);
+    const slice=data.slice(start,i+1);
+    const avg=slice.reduce((s,x)=>s+x.value,0)/slice.length;
+    return {date:d.date, value:avg};
+  });
+}
+
+let currentRange='all';
+
+function renderWeight(){
+  const unit=getWeightUnit();
+  document.getElementById('weight-unit-display').textContent=unit.toUpperCase();
+  const all=getSortedWeights();
+  const today=todayKey();
+  const todayEntry=all.find(e=>e.date===today);
+  const latest=all[all.length-1];
+
+  // Current display
+  const cur=document.getElementById('weight-current');
+  const dl=document.getElementById('weight-date');
+  const tr=document.getElementById('weight-trend');
+  if(todayEntry){
+    cur.textContent=todayEntry.value.toFixed(1);
+    dl.textContent='Today';
+  } else if(latest){
+    cur.textContent=latest.value.toFixed(1);
+    const d=new Date(latest.date+'T12:00:00');
+    dl.textContent='Last: '+d.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+  } else {
+    cur.textContent='—';
+    dl.textContent='No entries yet';
+  }
+
+  // Trend (compare latest to 7 days ago)
+  if(all.length>=2){
+    const latestDate=new Date(latest.date+'T12:00:00');
+    const targetDate=new Date(latestDate);targetDate.setDate(targetDate.getDate()-7);
+    let ref=null;
+    for(let i=all.length-2;i>=0;i--){
+      const d=new Date(all[i].date+'T12:00:00');
+      if(d<=targetDate){ref=all[i];break}
+    }
+    if(!ref)ref=all[0];
+    const diff=latest.value-ref.value;
+    if(Math.abs(diff)<0.05){tr.textContent='≈ stable vs last week';tr.className='weight-trend flat'}
+    else if(diff<0){tr.textContent=`▼ ${Math.abs(diff).toFixed(1)} ${unit} vs last week`;tr.className='weight-trend down'}
+    else{tr.textContent=`▲ ${diff.toFixed(1)} ${unit} vs last week`;tr.className='weight-trend up'}
+  } else {
+    tr.textContent='';tr.className='weight-trend';
+  }
+
+  // Stats
+  const statsEl=document.getElementById('weight-stats');
+  if(all.length>0){
+    const values=all.map(e=>e.value);
+    const min=Math.min(...values);
+    const max=Math.max(...values);
+    const change=all.length>1?(latest.value-all[0].value):0;
+    const changeStr=(change>=0?'+':'')+change.toFixed(1);
+    statsEl.innerHTML=`
+      <div class="weight-stat"><div class="weight-stat-label">Lowest</div><div class="weight-stat-val">${min.toFixed(1)}</div></div>
+      <div class="weight-stat"><div class="weight-stat-label">Highest</div><div class="weight-stat-val">${max.toFixed(1)}</div></div>
+      <div class="weight-stat"><div class="weight-stat-label">Total</div><div class="weight-stat-val">${changeStr}</div></div>`;
+  } else { statsEl.innerHTML=''; }
+
+  // Filter by range
+  let filtered=all;
+  if(currentRange!=='all'&&all.length>0){
+    const days=parseInt(currentRange,10);
+    const cutoff=new Date();cutoff.setDate(cutoff.getDate()-days);
+    const cutoffKey=dateKey(cutoff);
+    filtered=all.filter(e=>e.date>=cutoffKey);
+  }
+
+  // Chart
+  const chartCard=document.getElementById('weight-chart-card');
+  const chartEl=document.getElementById('weight-chart');
+  if(filtered.length>=2){
+    chartCard.style.display='block';
+    renderChart(chartEl, filtered, unit);
+  } else if(filtered.length===1){
+    chartCard.style.display='block';
+    chartEl.innerHTML='<div style="text-align:center;padding:30px;color:#8c8985;font-size:13px;">Need at least 2 entries to show chart</div>';
+  } else {
+    chartCard.style.display='none';
+  }
+
+  // Goal card
+  const goal=getGoalWeight();
+  const goalCard=document.getElementById('goal-card');
+  if(goal&&latest){
+    const remaining=latest.value-goal;
+    const absRem=Math.abs(remaining);
+    let etaStr='—';
+    if(all.length>=3){
+      // Linear regression on last 30 days for ETA
+      const recent=all.slice(-30);
+      if(recent.length>=3){
+        const firstDate=new Date(recent[0].date+'T12:00:00').getTime();
+        const xs=recent.map(e=>(new Date(e.date+'T12:00:00').getTime()-firstDate)/(1000*60*60*24));
+        const ys=recent.map(e=>e.value);
+        const n=xs.length;
+        const sx=xs.reduce((a,b)=>a+b,0);
+        const sy=ys.reduce((a,b)=>a+b,0);
+        const sxy=xs.reduce((a,b,i)=>a+b*ys[i],0);
+        const sxx=xs.reduce((a,b)=>a+b*b,0);
+        const slope=(n*sxy-sx*sy)/(n*sxx-sx*sx); // units per day
+        if(!isNaN(slope)&&Math.abs(slope)>0.001){
+          // slope is positive = gaining, negative = losing
+          const movingTowardGoal=(remaining>0&&slope<0)||(remaining<0&&slope>0);
+          if(movingTowardGoal){
+            const daysToGoal=Math.abs(remaining/slope);
+            if(daysToGoal<3650){
+              const eta=new Date();eta.setDate(eta.getDate()+Math.round(daysToGoal));
+              etaStr=eta.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+              if(daysToGoal<365)etaStr+=` (${Math.round(daysToGoal)}d)`;
+            }
+          } else {
+            etaStr='Not trending toward goal';
+          }
+        }
+      }
+    }
+    const direction=remaining>0?'to lose':remaining<0?'to gain':'reached!';
+    goalCard.style.display='block';
+    goalCard.innerHTML=`
+      <div class="goal-title">Goal</div>
+      <div class="goal-row"><span class="gl">Target</span><span class="gv">${goal.toFixed(1)} ${unit}</span></div>
+      <div class="goal-row"><span class="gl">Remaining</span><span class="gv">${absRem.toFixed(1)} ${unit} ${direction}</span></div>
+      <div class="goal-row"><span class="gl">Estimated arrival</span><span class="gv eta">${etaStr}</span></div>`;
+  } else { goalCard.style.display='none'; }
+
+  // Entries list (most recent first)
+  const entriesEl=document.getElementById('weight-entries');
+  if(all.length===0){
+    entriesEl.innerHTML='<div class="weight-empty">No weight entries yet.<br>Log your weight to start tracking.</div>';
+  } else {
+    const reversed=[...all].reverse();
+    entriesEl.innerHTML=reversed.map((e,i)=>{
+      const d=new Date(e.date+'T12:00:00');
+      const dstr=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric',year:d.getFullYear()!==new Date().getFullYear()?'numeric':undefined});
+      let deltaStr='';
+      if(i<reversed.length-1){
+        const prev=reversed[i+1].value;
+        const diff=e.value-prev;
+        if(Math.abs(diff)>=0.05){
+          deltaStr=`<span class="weight-entry-delta" style="color:${diff<0?'#2a7a55':'#c0392b'}">${diff>0?'+':''}${diff.toFixed(1)}</span>`;
+        }
+      }
+      return `<div class="weight-entry"><span><span class="weight-entry-date">${dstr}</span>${deltaStr}</span><span><span class="weight-entry-val">${e.value.toFixed(1)} ${unit}</span><button class="weight-entry-delete" data-dk="${e.date}">✕</button></span></div>`;
+    }).join('');
+    entriesEl.querySelectorAll('.weight-entry-delete').forEach(b=>{
+      b.addEventListener('click',()=>{
+        if(!confirm('Delete this entry?'))return;
+        deleteWeightEntry(b.dataset.dk);
+        renderWeight();
+      });
+    });
+  }
+
+  // Prefill input if today's entry exists
+  const wi=document.getElementById('weight-input');
+  if(todayEntry&&document.activeElement!==wi){
+    wi.value=todayEntry.value;
+  }
+}
+
+function renderChart(container, data, unit){
+  const W=320, H=160, pad={t:10, r:12, b:22, l:34};
+  const innerW=W-pad.l-pad.r, innerH=H-pad.t-pad.b;
+
+  const values=data.map(d=>d.value);
+  const avgData=movingAverage(data, 7);
+  const avgValues=avgData.map(d=>d.value);
+  const allVals=[...values,...avgValues];
+  const minV=Math.min(...allVals), maxV=Math.max(...allVals);
+  const pad2=(maxV-minV)*0.1||1;
+  const yMin=minV-pad2, yMax=maxV+pad2;
+
+  const firstTime=new Date(data[0].date+'T12:00:00').getTime();
+  const lastTime=new Date(data[data.length-1].date+'T12:00:00').getTime();
+  const timeRange=lastTime-firstTime||1;
+
+  const xFn=t=>pad.l+((t-firstTime)/timeRange)*innerW;
+  const yFn=v=>pad.t+((yMax-v)/(yMax-yMin))*innerH;
+
+  const toPath=arr=>arr.map((d,i)=>{
+    const t=new Date(d.date+'T12:00:00').getTime();
+    return (i===0?'M':'L')+xFn(t).toFixed(1)+','+yFn(d.value).toFixed(1);
+  }).join(' ');
+
+  // Y axis ticks
+  const yTicks=4;
+  const yLabels=[];
+  for(let i=0;i<=yTicks;i++){
+    const v=yMin+(yMax-yMin)*(i/yTicks);
+    const y=yFn(v);
+    yLabels.push(`<line x1="${pad.l}" x2="${W-pad.r}" y1="${y}" y2="${y}" stroke="#eae8e4" stroke-width="1"/><text x="${pad.l-6}" y="${y+3}" font-family="DM Mono,monospace" font-size="9" fill="#8c8985" text-anchor="end">${v.toFixed(1)}</text>`);
+  }
+
+  // X axis labels (first, middle, last)
+  const xLabels=[];
+  const positions=data.length>=3?[0,Math.floor(data.length/2),data.length-1]:[0,data.length-1];
+  positions.forEach(i=>{
+    const d=data[i];
+    const t=new Date(d.date+'T12:00:00');
+    const label=t.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    const x=xFn(t.getTime());
+    xLabels.push(`<text x="${x}" y="${H-6}" font-family="DM Sans,sans-serif" font-size="9" fill="#8c8985" text-anchor="middle">${label}</text>`);
+  });
+
+  // Points (daily only)
+  const points=data.map(d=>{
+    const t=new Date(d.date+'T12:00:00').getTime();
+    return `<circle cx="${xFn(t).toFixed(1)}" cy="${yFn(d.value).toFixed(1)}" r="2.5" fill="#b4b0a9"/>`;
+  }).join('');
+
+  const goal=getGoalWeight();
+  let goalLine='';
+  if(goal&&goal>=yMin&&goal<=yMax){
+    const gy=yFn(goal);
+    goalLine=`<line x1="${pad.l}" x2="${W-pad.r}" y1="${gy}" y2="${gy}" stroke="#3a8f6e" stroke-width="1" stroke-dasharray="3,3" opacity="0.5"/><text x="${W-pad.r-2}" y="${gy-3}" font-family="DM Mono,monospace" font-size="8" fill="#3a8f6e" text-anchor="end">goal ${goal.toFixed(1)}</text>`;
+  }
+
+  container.innerHTML=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet">
+    ${yLabels.join('')}
+    ${goalLine}
+    <path d="${toPath(data)}" fill="none" stroke="#b4b0a9" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.7"/>
+    ${points}
+    <path d="${toPath(avgData)}" fill="none" stroke="#3a8f6e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    ${xLabels.join('')}
+  </svg>`;
+}
+
+// Weight log button
+document.getElementById('weight-log-btn').addEventListener('click',()=>{
+  const inp=document.getElementById('weight-input');
+  const v=parseFloat(inp.value);
+  if(!v||v<=0){inp.focus();return}
+  saveWeightEntry(todayKey(),v);
+  inp.blur();
+  renderWeight();
+});
+document.getElementById('weight-input').addEventListener('keydown',e=>{
+  if(e.key==='Enter'){e.preventDefault();document.getElementById('weight-log-btn').click()}
+});
+
+// Range filter buttons
+document.querySelectorAll('.range-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.range-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    currentRange=b.dataset.range;
+    renderWeight();
+  });
+});
+
+// Goal weight input
+document.getElementById('input-goal-weight').addEventListener('change',e=>{setGoalWeight(parseFloat(e.target.value));renderWeight()});
+document.getElementById('input-goal-weight').addEventListener('blur',e=>{setGoalWeight(parseFloat(e.target.value));renderWeight()});
+
+// Unit buttons
+function updateUnitButtons(){
+  const u=getWeightUnit();
+  document.querySelectorAll('.unit-btn').forEach(b=>{
+    if(b.dataset.unit===u){b.style.backgroundColor='#3a8f6e';b.style.color='#ffffff';b.style.borderColor='#3a8f6e'}
+    else{b.style.backgroundColor='#f7f6f3';b.style.color='#333130';b.style.borderColor='#ddd9d3'}
+  });
+}
+document.querySelectorAll('.unit-btn').forEach(b=>{
+  b.addEventListener('click',()=>{setWeightUnit(b.dataset.unit);updateUnitButtons();renderWeight()});
+});
+
+document.querySelectorAll('.tab-btn').forEach(btn=>{btn.addEventListener('click',()=>{document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));btn.classList.add('active');document.getElementById(btn.dataset.tab).classList.add('active');if(btn.dataset.tab==='tab-history')renderHistory();if(btn.dataset.tab==='tab-settings')loadSettings();if(btn.dataset.tab==='tab-weight')renderWeight()})});
 
 let lastKey=todayKey();setInterval(()=>{if(todayKey()!==lastKey){lastKey=todayKey();renderToday()}},30000);
 renderToday();loadSettings();
